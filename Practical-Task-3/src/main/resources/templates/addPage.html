@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Add User Data</title>
+    <style>
+        table {
+            width: auto;
+            height: auto;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        th {
+            padding: 10px;
+        }
+
+        input[type=text] {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type=submit] {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div th:align="center">
+    <h2>User Form</h2>
+    <form th:method="POST" th:action="@{/add}">
+        <table th:border="0" th:cellpadding="5">
+            <tr>
+                <td><label th:for="firstName">First Name: </label></td>
+                <td><input type="text" name="firstName" id="firstName"></td>
+            </tr>
+            <tr>
+                <td><label th:for="lastName">Last Name: </label></td>
+                <td><input type="text" name="lastName" id="lastName"></td>
+            </tr>
+            <tr>
+                <td><label th:for="email">Email: </label></td>
+                <td><input type="text" name="email" id="email"></td>
+            </tr>
+        </table>
+        <br>
+        <input type="submit" value="Add User">
+    </form>
+</div>
+</body>
+</html>

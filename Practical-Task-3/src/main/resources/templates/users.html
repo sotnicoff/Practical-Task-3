@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User Database</title>
+    <style>
+        a {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: auto;
+            height: auto;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        td {
+            padding: 20px;
+        }
+
+        th {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:switch="${users}" th:align="center">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+        <h2>List of Users</h2>
+        <table th:border="1" th:cellpadding="5">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.getId()}">Id</td>
+                <td th:utext="${user.getFirstName()}">First Name</td>
+                <td th:utext="${user.getLastName()}">Last Name</td>
+                <td th:utext="${user.getEmail()}">Email</td>
+                <td>
+                    <a th:href="@{/edit/{id}(id=${user.getId()})}">Edit</a>
+                    <a th:href="@{/delete/{id}(id=${user.getId()})}">Delete</a>
+                </td>
+            </tr>
+        </table>
+        <div style="margin-top: 30px">
+            <a href="/add">Add User</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
