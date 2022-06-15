@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User Data</title>
+
+    <style>
+        table {
+            width: auto;
+            height: auto;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        th {
+            padding: 10px;
+        }
+
+        input[type=text] {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type=submit] {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div th:align="center">
+    <h2>Edit User Data</h2>
+    <form th:action="@{/admin/edit}" th:object="${user}" method="post">
+        <table th:border="0" th:cellpadding="5">
+            <tr>
+                <td><input type="hidden" name="id" th:value="${user.getId()}"></td>
+            </tr>
+            <tr>
+                <td><label th:for="username">Username:</label></td>
+                <td><input type="text" name="username" th:id="username" th:value="${user.getUsername()}"></td>
+            </tr>
+            <tr>
+                <td><label th:for="password">Password:</label></td>
+                <td><input type="text" name="password" th:id="password" th:value="${user.getPassword()}"></td>
+            </tr>
+            <tr>
+                <td><label th:for="firstname">Firstname:</label></td>
+                <td><input type="text" name="firstName" th:id="firstName" th:value="${user.getFirstName()}"></td>
+            </tr>
+            <tr>
+                <td><label th:for="lastName">Lastname:</label></td>
+                <td><input type="text" name="lastName" th:id="lastName" th:value="${user.getLastName()}"></td>
+            </tr>
+            <tr>
+                <td><label th:for="email">Email:</label></td>
+                <td><input type="text" name="email" th:id="email" th:value="${user.getEmail()}"></td>
+            </tr>
+            <tr>
+                <td><label><input type="checkbox" name="adminRole" th:checked="${roleAdmin}" th:value="ROLE_ADMIN" th:text="Admin"></label></td>
+            </tr>
+        </table>
+        <br>
+        <input type="submit" value="Edit User">
+    </form>
+</div>
+</body>
+</html>

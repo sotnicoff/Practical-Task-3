@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User Database</title>
+    <style>
+        a {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: auto;
+            height: auto;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        td {
+            padding: 20px;
+        }
+
+        th {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:switch="${users}" th:align="center">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+        <h2>List of Users</h2>
+        <table th:border="1" th:cellpadding="5">
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.getId()}"></td>
+                <td th:utext="${user.getUsername}"></td>
+                <td th:utext="${user.getFirstName()}"></td>
+                <td th:utext="${user.getLastName()}"></td>
+                <td th:utext="${user.getEmail()}"></td>
+                <td>
+                    <span th:each="role : ${user.getAuthorities()}" id="role">
+                        <span th:text="${role.getAuthority()}"></span>
+                    </span>
+                </td>
+                <td>
+                    <a th:href="@{/admin/edit/{id}(id=${user.getId()})}">Edit</a>
+                    <a th:href="@{/admin/delete/{id}(id=${user.getId()})}">Delete</a>
+                </td>
+            </tr>
+        </table>
+        <div style="margin-top: 30px">
+            <a href="/admin/add">Add User</a>
+        </div>
+        <div style="margin-top: 30px">
+            <form th:method="GET" action="/logout">
+                <input type="submit" value="Logout">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Page</title>
+    <style>
+        table {
+            width: auto;
+            height: auto;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        td {
+            padding: 20px;
+        }
+
+        th {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div  th:align="center">
+    <div>
+        <table th:border="1" th:cellpadding="5">
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+            </tr>
+            <tr>
+                <td th:text="${user.getId()}">Id</td>
+                <td th:text="${user.getUsername()}">Username</td>
+                <td th:text="${user.getPassword()}">Password</td>
+                <td th:text="${user.getEmail()}">Email</td>
+                <td th:text="${user.getFirstName()}">Firstname</td>
+                <td th:text="${user.getLastName()}">Lastname</td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin-top: 30px">
+        <form th:method="GET" action="/logout">
+            <input type="submit" value="Logout">
+        </form>
+    </div>
+</div>
+</body>
+</html>
