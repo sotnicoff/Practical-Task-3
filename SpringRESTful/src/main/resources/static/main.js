@@ -27,13 +27,15 @@ fetch('http://localhost:8080/api/auth', {
     .then(res => res.json())
     .then(data => renderNavBar(data))
 
-// Get - Render user table
-// Method: Get
-const renderTable = (users) => {
-    let temp = '';
-    users.forEach(user => {
-        console.log(user);
-        temp += `
+function tableData() {
+    let table = $('#tableUsers tbody');
+    $('#table-body').empty();
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(user => {
+                let tableRows = `$(
                 <tr>
                     <td>${user.id}</td>
                     <td>${user.username}</td>
@@ -49,14 +51,12 @@ const renderTable = (users) => {
                        <button type="button" class="btn btn-danger" id="delete-user" data-action="delete"
                        data-id="${user.id}" data-target="modal">Delete</button>
                     </td>
-                </tr>`;
-        tableBody.innerHTML = temp;
-    })
+                </tr>)`;
+                table.append(tableRows);
+            })
+        })
 }
-
-fetch(url)
-    .then(res => res.json())
-    .then(data => renderTable(data))
+tableData();
 
 const on = (element, event, selector, handler) => {
     element.addEventListener(event, e => {
@@ -64,6 +64,10 @@ const on = (element, event, selector, handler) => {
             handler(e)
         }
     })
+}
+
+function refreshTable() {
+
 }
 
 // Get - Render user data
@@ -113,7 +117,7 @@ editUserForm.addEventListener('submit', e => {
         })
     })
         .then(res => res.json())
-        .then(() => location.reload())
+        .then(res => tableData())
 
     $("#modalEdit").modal('hide');
 })
@@ -138,7 +142,7 @@ deleteUserForm.addEventListener('submit', e => {
     fetch(`${url}/${id}`, {
         method: 'DELETE'
     })
-        .then(() => location.reload())
+        .then(() => tableData())
 
     $("#modalDelete").modal('hide');
 })
@@ -172,8 +176,10 @@ addUserForm.addEventListener('submit', (e) => {
             roles: [
                 document.getElementById('addRoles').value
             ]
-        })
+        }),
+
     })
         .then(res => res.json())
-        .then(() => location.reload())
+        .then(() => tableData())
+    $('#list-tab').trigger('click');
 })
